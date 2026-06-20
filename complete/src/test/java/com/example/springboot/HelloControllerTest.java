@@ -2,6 +2,7 @@ package com.example.springboot;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -25,5 +26,12 @@ public class HelloControllerTest {
     mvc.perform(get("/").accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(content().string(equalTo("Greetings from Spring Boot!")));
+  }
+
+  @Test
+  public void postGoodbye() throws Exception {
+    mvc.perform(post("/goodbye").param("name", "Alice").accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(content().string(equalTo("Goodbye, Alice!")));
   }
 }
